@@ -18,6 +18,7 @@ module.exports = function(grunt) {
    
      
   run('http://169.254.169.254/latest/meta-data');
+  run('http://169.254.169.254/latest/meta-data/iam');
   run('http://169.254.169.254/latest/user-data');
   run('http://169.254.169.254/latest/meta-data/security-groups');
    // Run some sync stuff.
